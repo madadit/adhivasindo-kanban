@@ -1,8 +1,5 @@
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-import { Navigate, Route } from 'react-router-dom';
-
-import Home from './pages/Home';
+import { useState } from 'react';
+import { IonApp, IonContent, IonPage, IonToast, setupIonicReact } from '@ionic/react';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -20,6 +17,11 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
+import { KanbanBoard } from './components/KanbanBoard';
+import { TaskDetailModal } from './components/TaskDetailModal';
+import { TaskItem } from './types/kanban';
+import { useBoardStore } from './store/useBoardStore';
+
 /**
  * Ionic Dark Mode
  * -----------------------------------------------------
@@ -36,15 +38,70 @@ import './theme/variables.css';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route path="/home" element={<Home />} />
-        <Route path="/" element={<Navigate to="/home" replace />} />
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+export const App: React.FC = () => {
+  const columns = useBoardStore((state) => state.columns);
+  const tasks = useBoardStore((state) => state.tasks);
+
+  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [defaultColumnId, setDefaultColumnId] = useState<string>('col-todo');
+
+  const [toastMessage, setToastMessage] = useState<string>('');
+  const [isToastOpen, setIsToastOpen] = useState(false);
+
+  const activeTask: TaskItem | null = selectedTaskId
+    ? tasks.find((t) => t.id === selectedTaskId) ?? null
+    : null;
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setIsToastOpen(true);
+  };
+
+  const handleOpenNewTask = (colId: string) => {
+    setSelectedTaskId(null);
+    setDefaultColumnId(colId || columns[0]?.id || 'col-todo');
+    setIsModalOpen(true);
+  };
+
+  const handleSelectTask = (task: TaskItem) => {
+    setSelectedTaskId(task.id);
+    setDefaultColumnId(task.columnId);
+    setIsModalOpen(true);
+  };
+
+  return (
+    <IonApp>
+      <IonPage>
+        <IonContent fullscreen>
+          <KanbanBoard
+            onOpenNewTask={handleOpenNewTask}
+            onSelectTask={handleSelectTask}
+            onShowToast={showToast}
+          />
+
+          <TaskDetailModal
+            isOpen={isModalOpen}
+            task={activeTask}
+            defaultColumnId={defaultColumnId}
+            onClose={() => {
+              setIsModalOpen(false);
+              setSelectedTaskId(null);
+            }}
+            onShowToast={showToast}
+          />
+
+          <IonToast
+            isOpen={isToastOpen}
+            message={toastMessage}
+            duration={2000}
+            position="bottom"
+            onDidDismiss={() => setIsToastOpen(false)}
+          />
+        </IonContent>
+      </IonPage>
+    </IonApp>
+  );
+};
 
 export default App;
