@@ -1,2 +1,10 @@
 /* For information on how to create your own theme, please refer to:
 http://ionicframework.com/docs/theming/ */
+@import "tailwindcss";
+
+/* kode CSS lainnya di bawah sini... */
+ion-modal.task-detail-modal {
+  --width: min(960px, 94vw);
+  --height: min(860px, 90vh);
+  --border-radius: 16px;
+}
