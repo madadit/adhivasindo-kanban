@@ -89,8 +89,8 @@ Pastikan kamu sudah menginstal:
 src/
 ├── components/       # Komponen board, column, task card, modal detail
 ├── pages/            # Halaman utama board
-├── services/ / store/# Logika state management & penyimpanan lokal
-├── types/ / models/  # Definisi tipe data Task, Column, User, Label
+├── store/# Logika state management & penyimpanan lokal
+├── types/  # Definisi tipe data Task, Column, User, Label
 └── theme/            # Pengaturan tema & gaya tampilan
 ```
 
