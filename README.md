@@ -1,6 +1,6 @@
 # CRUD Task Management Board — Frontend Take Home Test (Adhivasindo)
 
-Aplikasi papan manajemen tugas (Kanban Board) berbasis **Ionic** yang dibangun untuk memenuhi kebutuhan *Take Home Test* posisi Frontend Engineer di **Adhivasindo**. Aplikasi ini mendukung pengelolaan tugas secara penuh di sisi klien (*client-side*) dengan antarmuka yang responsif untuk desktop maupun mobile.
+Aplikasi papan manajemen tugas (Kanban Board) berbasis **Ionic** yang dibangun untuk memenuhi kebutuhan *Take Home Test* posisi Frontend Engineer di **Adhivasindo**. Aplikasi ini mendukung pengelolaan tugas secara penuh di sisi klien (*client-side*).
 
 ---
 
