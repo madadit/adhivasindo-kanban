@@ -18,7 +18,7 @@ import {
 import { TEAM_MEMBERS } from '../data/seedData';
 import { LABEL_OPTIONS, useBoardStore } from '../store/useBoardStore';
 import { AttachmentItem, Subtask, TaskItem, TaskLabel, TaskPriority } from '../types/kanban';
-import { ToastItem, ToastVariant } from './KanbanBoard';
+import { ToastItem, ToastVariant } from '../pages/KanbanBoard';
 
 interface TaskDetailModalProps {
   isOpen: boolean;

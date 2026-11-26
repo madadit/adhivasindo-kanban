@@ -14,7 +14,7 @@ import {
 import { useBoardStore, LABEL_OPTIONS } from '../store/useBoardStore';
 import { TEAM_MEMBERS } from '../data/seedData';
 import { TaskFilterState, TaskItem, TaskLabel } from '../types/kanban';
-import { TaskCard } from './TaskCard';
+import { TaskCard } from '../components/TaskCard';
 
 export type ToastVariant = 'success' | 'info' | 'warning' | 'error';
 

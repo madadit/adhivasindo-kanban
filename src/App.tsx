@@ -17,7 +17,7 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
-import { KanbanBoard } from './components/KanbanBoard';
+import { KanbanBoard } from './pages/KanbanBoard';
 import { TaskDetailModal } from './components/TaskDetailModal';
 import { TaskItem } from './types/kanban';
 import { useBoardStore } from './store/useBoardStore';
