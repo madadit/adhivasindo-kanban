@@ -35,19 +35,12 @@ function formatShortDate(dateStr: string): string {
   return parsed.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
 }
 
-export const TaskCard: React.FC<TaskCardProps> = ({
-  task,
-  onSelectTask,
-  onDragStartTask,
-}) => {
-  const assignees: TeamMember[] = TEAM_MEMBERS.filter((m) =>
-    task.assigneeIds.includes(m.id)
-  );
+export const TaskCard: React.FC<TaskCardProps> = ({ task, onSelectTask, onDragStartTask }) => {
+  const assignees: TeamMember[] = TEAM_MEMBERS.filter((m) => task.assigneeIds.includes(m.id));
 
   const totalSubtasks = task.subtasks.length;
   const completedSubtasks = task.subtasks.filter((s) => s.completed).length;
-  const progressPercent =
-    totalSubtasks > 0 ? Math.round((completedSubtasks / totalSubtasks) * 100) : 0;
+  const progressPercent = totalSubtasks > 0 ? Math.round((completedSubtasks / totalSubtasks) * 100) : 0;
 
   const labelStyle = LABEL_STYLES[task.label] ?? LABEL_STYLES.Undefined;
 
@@ -78,20 +71,10 @@ export const TaskCard: React.FC<TaskCardProps> = ({
         >
           {task.label}
         </span>
-
-        {task.priority && (
-          <span className="text-[11px] font-medium text-slate-400">
-            {task.priority}
-          </span>
-        )}
       </div>
 
-      <h3 className="mb-2.5 text-sm leading-snug font-semibold text-slate-800">
-        {task.title}
-      </h3>
-
       {totalSubtasks > 0 && (
-        <div className="mb-3">
+        <div className="mb-3 mt-3">
           <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
             <div
               className={`h-full rounded-full transition-all duration-300 ${labelStyle.bar}`}
@@ -100,6 +83,8 @@ export const TaskCard: React.FC<TaskCardProps> = ({
           </div>
         </div>
       )}
+
+      <h5 className="mb-2.5 text-sm leading-snug font-semibold text-slate-600">{task.title}</h5>
 
       <div className="flex items-center justify-between gap-2 pt-1 text-xs text-slate-500">
         <div className="flex flex-wrap items-center gap-2.5">
@@ -114,13 +99,6 @@ export const TaskCard: React.FC<TaskCardProps> = ({
             <span className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-600">
               <CheckSquare className="h-3.5 w-3.5 text-slate-400" />
               {completedSubtasks}/{totalSubtasks}
-            </span>
-          )}
-
-          {task.commentsCount > 0 && (
-            <span className="inline-flex items-center gap-1 text-[11px] text-slate-500">
-              <MessageSquare className="h-3.5 w-3.5 text-slate-400" />
-              {task.commentsCount}
             </span>
           )}
 
